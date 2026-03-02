@@ -1,0 +1,1915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_382" class="java.beans.XMLDecoder">
+ <object class="Appleseed.HOBOViewX">
+  <void property="TFont">
+   <string>Tahoma</string>
+  </void>
+  <void property="TFontSz">
+   <int>12</int>
+  </void>
+  <void property="axes">
+   <array class="Graphing.LGAxis" length="8">
+    <void index="0">
+     <object class="Graphing.LGAbsTimeAxis" id="LGAbsTimeAxis0">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGAbsTimeAxis0"/>
+        <double>1.5778368E12</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGAbsTimeAxis0"/>
+        <double>1.7356896E12</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mGridFlag</string>
+       <void method="set">
+        <object idref="LGAbsTimeAxis0"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGAbsTimeAxis0"/>
+        <int>2</int>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGAbsTimeAxis0"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void property="MPaintSave">
+       <object class="java.awt.Color" id="Color0">
+        <int>0</int>
+        <int>0</int>
+        <int>0</int>
+        <int>255</int>
+       </object>
+      </void>
+      <void property="MStrokeSave">
+       <object class="java.awt.BasicStroke" id="BasicStroke0">
+        <float>1.0</float>
+        <int>2</int>
+        <int>0</int>
+        <float>10.0</float>
+        <null/>
+        <float>0.0</float>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void index="1">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis0">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis0"/>
+        <double>2.0</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis0"/>
+        <double>22.0</double>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis0"/>
+        <int>1</int>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis0"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis0"/>
+        <string>°C</string>
+       </void>
+      </void>
+      <void property="MPaintSave">
+       <object idref="Color0"/>
+      </void>
+      <void property="MStrokeSave">
+       <object idref="BasicStroke0"/>
+      </void>
+     </object>
+    </void>
+    <void index="2">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis1">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis1"/>
+        <double>30.0</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis1"/>
+        <double>110.0</double>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis1"/>
+        <int>3</int>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis1"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis1"/>
+        <string>%</string>
+       </void>
+      </void>
+      <void property="MPaintSave">
+       <object idref="Color0"/>
+      </void>
+      <void property="MStrokeSave">
+       <object idref="BasicStroke0"/>
+      </void>
+      <void property="paneColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>0</int>
+        <int>255</int>
+        <int>255</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void index="3">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis2">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <double>-0.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <double>1.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mLocked</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mCustomTicksFlag</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <int>1</int>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mHidden</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis2"/>
+        <string>Coupler Detached</string>
+       </void>
+      </void>
+      <void property="paneColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>178</int>
+        <int>0</int>
+        <int>255</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void index="4">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis3">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <double>-0.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <double>1.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mLocked</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mCustomTicksFlag</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <int>3</int>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mHidden</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis3"/>
+        <string>Coupler Attached</string>
+       </void>
+      </void>
+      <void property="paneColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>178</int>
+        <int>0</int>
+        <int>255</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void index="5">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis4">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <double>-0.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <double>1.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mLocked</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mCustomTicksFlag</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <int>1</int>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mHidden</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis4"/>
+        <string>Host Connected</string>
+       </void>
+      </void>
+      <void property="paneColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>178</int>
+        <int>0</int>
+        <int>255</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void index="6">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis5">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <double>-0.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <double>1.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mLocked</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mCustomTicksFlag</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <int>3</int>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mHidden</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis5"/>
+        <string>Stopped</string>
+       </void>
+      </void>
+      <void property="paneColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>178</int>
+        <int>0</int>
+        <int>255</int>
+       </object>
+      </void>
+     </object>
+    </void>
+    <void index="7">
+     <object class="Graphing.LGValueAxis" id="LGValueAxis6">
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMinReal</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <double>-0.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mMaxReal</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <double>1.1</double>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mLocked</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGAxis" method="getField">
+       <string>mCustomTicksFlag</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mLocation</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <int>1</int>
+       </void>
+      </void>
+      <void class="Graphing.LGBorderPane" method="getField">
+       <string>mHidden</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mCustomFont</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <boolean>true</boolean>
+       </void>
+      </void>
+      <void class="Graphing.LGPane" method="getField">
+       <string>mName</string>
+       <void method="set">
+        <object idref="LGValueAxis6"/>
+        <string>End Of File</string>
+       </void>
+      </void>
+      <void property="paneColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>178</int>
+        <int>0</int>
+        <int>255</int>
+       </object>
+      </void>
+     </object>
+    </void>
+   </array>
+  </void>
+  <void property="labelArray">
+   <array class="Graphing.LGLabel" length="0"/>
+  </void>
+  <void property="legend">
+   <object class="Graphing.LGLegend" id="LGLegend0">
+    <void class="Graphing.LGPane" method="getField">
+     <string>mCustomFont</string>
+     <void method="set">
+      <object idref="LGLegend0"/>
+      <boolean>true</boolean>
+     </void>
+    </void>
+    <void property="MPaintSave">
+     <object idref="Color0"/>
+    </void>
+    <void property="MStrokeSave">
+     <object idref="BasicStroke0"/>
+    </void>
+   </object>
+  </void>
+  <void property="series">
+   <array class="Appleseed.HOBOViewX$HOBOSeriesX" length="7">
+    <void index="0">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX" id="HOBOViewX$HOBOSeriesX0">
+      <void class="Appleseed.HOBOViewX$HOBOSeriesX" method="getField">
+       <string>m_ChannelName</string>
+       <void method="set">
+        <object idref="HOBOViewX$HOBOSeriesX0"/>
+        <string></string>
+       </void>
+      </void>
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="ID">
+       <int>1</int>
+      </void>
+      <void property="LDesc">
+       <string>Temperature</string>
+      </void>
+      <void property="OMName">
+       <string>OLServices.measurement.temperature.OMTemp_Thermistor</string>
+      </void>
+      <void property="SDesc">
+       <string>Temp</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>1</int>
+      </void>
+      <void property="avg">
+       <double>6.871694856146484</double>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="chanSerial">
+       <string>10799600</string>
+      </void>
+      <void property="channelDisplayMode">
+       <object class="java.lang.Enum" id="OPlotManager$ChannelDisplayModes0" method="valueOf">
+        <class>Appleseed.OPlotManager$ChannelDisplayModes</class>
+        <string>LOGGER</string>
+       </object>
+      </void>
+      <void property="channelMax">
+       <double>70.0</double>
+      </void>
+      <void property="channelMin">
+       <double>-20.0</double>
+      </void>
+      <void property="data">
+       <string>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</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="derived">
+       <boolean>false</boolean>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.579267679E12</double>
+      </void>
+      <void property="fstScaleRaw">
+       <double>NaN</double>
+      </void>
+      <void property="fstScaleReal">
+       <double>NaN</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="interval">
+       <array class="double" length="1">
+        <void index="0">
+         <double>64800.0</double>
+        </void>
+       </array>
+      </void>
+      <void property="launcherString">
+       <string>HOBOware Pro-3.7.16_1108_1030_Windows</string>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="max">
+       <double>21.509</double>
+      </void>
+      <void property="min">
+       <double>2.637</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="real">
+       <boolean>true</boolean>
+      </void>
+      <void property="runtimeDescription">
+       <object class="java.lang.Enum" id="OChannel$ERUNTIME_DESCRIPTION0" method="valueOf">
+        <class>OLServices.channel.OChannel$ERUNTIME_DESCRIPTION</class>
+        <string>ERUNTIME_DESC_UNDEFINED</string>
+       </object>
+      </void>
+      <void property="runtimeUnits">
+       <object class="java.lang.Enum" id="OChannel$ERUNTIME_UNITS0" method="valueOf">
+        <class>OLServices.channel.OChannel$ERUNTIME_UNITS</class>
+        <string>ERUNTIME_UNIT_UNDEFINED</string>
+       </object>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>2294</int>
+        </void>
+       </array>
+      </void>
+      <void property="scdScaleRaw">
+       <double>NaN</double>
+      </void>
+      <void property="scdScaleReal">
+       <double>NaN</double>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries0">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mLinesFlag</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <array class="java.lang.String" length="2">
+           <void index="0">
+            <string>°C</string>
+           </void>
+           <void index="1">
+            <string>°F</string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mUnitName</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <string>°C</string>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries0"/>
+          <string>Temp</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="startTimes">
+         <null/>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="stdDev">
+       <double>1.4752743324683064</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+      <void property="useDerivedAndReal">
+       <boolean>true</boolean>
+      </void>
+      <void property="valPatt">
+       <string>#,##0.000;-#,##0.000</string>
+      </void>
+     </object>
+    </void>
+    <void index="1">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX" id="HOBOViewX$HOBOSeriesX1">
+      <void class="Appleseed.HOBOViewX$HOBOSeriesX" method="getField">
+       <string>m_ChannelName</string>
+       <void method="set">
+        <object idref="HOBOViewX$HOBOSeriesX1"/>
+        <string></string>
+       </void>
+      </void>
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="ID">
+       <int>2</int>
+      </void>
+      <void property="LDesc">
+       <string>Relative Humidity (Depends on Temp Channel 1)</string>
+      </void>
+      <void property="OMName">
+       <string>OLServices.measurement.relativehumidity.OMRH_Sensirion</string>
+      </void>
+      <void property="SDesc">
+       <string>RH</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>2</int>
+      </void>
+      <void property="avg">
+       <double>97.50945858761986</double>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="chanSerial">
+       <string>10799600</string>
+      </void>
+      <void property="channelDisplayMode">
+       <object idref="OPlotManager$ChannelDisplayModes0"/>
+      </void>
+      <void property="channelMax">
+       <double>100.0</double>
+      </void>
+      <void property="channelMin">
+       <double>1.0</double>
+      </void>
+      <void property="data">
+       <string>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</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="derived">
+       <boolean>false</boolean>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.579267679E12</double>
+      </void>
+      <void property="fstScaleRaw">
+       <double>NaN</double>
+      </void>
+      <void property="fstScaleReal">
+       <double>NaN</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="interval">
+       <array class="double" length="1">
+        <void index="0">
+         <double>64800.0</double>
+        </void>
+       </array>
+      </void>
+      <void property="launcherString">
+       <string>HOBOware Pro-3.7.16_1108_1030_Windows</string>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="max">
+       <double>100.0</double>
+      </void>
+      <void property="min">
+       <double>33.767</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="real">
+       <boolean>true</boolean>
+      </void>
+      <void property="runtimeDescription">
+       <object idref="OChannel$ERUNTIME_DESCRIPTION0"/>
+      </void>
+      <void property="runtimeUnits">
+       <object idref="OChannel$ERUNTIME_UNITS0"/>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>2294</int>
+        </void>
+       </array>
+      </void>
+      <void property="scdScaleRaw">
+       <double>NaN</double>
+      </void>
+      <void property="scdScaleReal">
+       <double>NaN</double>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries1">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointType</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <int>1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mLinesFlag</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <array class="java.lang.String" length="1">
+           <void index="0">
+            <string>%</string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mUnitName</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <string>%</string>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries1"/>
+          <string>RH</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="paneColor">
+         <object class="java.awt.Color">
+          <int>0</int>
+          <int>0</int>
+          <int>255</int>
+          <int>255</int>
+         </object>
+        </void>
+        <void property="startTimes">
+         <null/>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="stdDev">
+       <double>4.434579983000366</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+      <void property="useDerivedAndReal">
+       <boolean>true</boolean>
+      </void>
+      <void property="valPatt">
+       <string>#,##0.000;-#,##0.000</string>
+      </void>
+     </object>
+    </void>
+    <void index="2">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX">
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="LDesc">
+       <string>Coupler Detached</string>
+      </void>
+      <void property="SDesc">
+       <string>Coupler Detached</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>3</int>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="channelDisplayMode">
+       <object idref="OPlotManager$ChannelDisplayModes0"/>
+      </void>
+      <void property="data">
+       <string>AICQCzv7dkI=</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="event">
+       <boolean>true</boolean>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.579267701E12</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>1</int>
+        </void>
+       </array>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries2">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointType</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <int>3</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointsFlag</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mSubEventCode</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <int>-1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <array class="java.lang.String" length="1">
+           <void index="0">
+            <string></string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mPtRadius</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <short>4</short>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries2"/>
+          <string>Coupler Detached</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="paneColor">
+         <object class="java.awt.Color">
+          <int>64</int>
+          <int>64</int>
+          <int>64</int>
+          <int>255</int>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+     </object>
+    </void>
+    <void index="3">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX">
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="LDesc">
+       <string>Coupler Attached</string>
+      </void>
+      <void property="SDesc">
+       <string>Coupler Attached</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>4</int>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="channelDisplayMode">
+       <object idref="OPlotManager$ChannelDisplayModes0"/>
+      </void>
+      <void property="data">
+       <string>AIBJXc0keUI=</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="event">
+       <boolean>true</boolean>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.727865935E12</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>1</int>
+        </void>
+       </array>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries3">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointType</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <int>4</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointsFlag</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mEventCode</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <int>1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mSubEventCode</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <int>-1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mFullEventCode</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <int>1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <array class="java.lang.String" length="1">
+           <void index="0">
+            <string></string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mPtRadius</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <short>4</short>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries3"/>
+          <string>Coupler Attached</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="paneColor">
+         <object class="java.awt.Color">
+          <int>64</int>
+          <int>64</int>
+          <int>64</int>
+          <int>255</int>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+     </object>
+    </void>
+    <void index="4">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX">
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="LDesc">
+       <string>Host Connected</string>
+      </void>
+      <void property="SDesc">
+       <string>Host Connected</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>5</int>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="channelDisplayMode">
+       <object idref="OPlotManager$ChannelDisplayModes0"/>
+      </void>
+      <void property="data">
+       <string>AIBDXs0keUI=</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="event">
+       <boolean>true</boolean>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.727865939E12</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>1</int>
+        </void>
+       </array>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries4">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointType</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <int>2</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointsFlag</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mEventCode</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <int>6</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mSubEventCode</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <int>-1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mFullEventCode</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <int>6</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <array class="java.lang.String" length="1">
+           <void index="0">
+            <string></string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mPtRadius</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <short>4</short>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries4"/>
+          <string>Host Connected</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="paneColor">
+         <object class="java.awt.Color">
+          <int>64</int>
+          <int>64</int>
+          <int>64</int>
+          <int>255</int>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+     </object>
+    </void>
+    <void index="5">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX">
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="LDesc">
+       <string>Stopped</string>
+      </void>
+      <void property="SDesc">
+       <string>Stopped</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>6</int>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="channelDisplayMode">
+       <object idref="OPlotManager$ChannelDisplayModes0"/>
+      </void>
+      <void property="data">
+       <string>AIAxYc0keUI=</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="event">
+       <boolean>true</boolean>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.727865951E12</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>1</int>
+        </void>
+       </array>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries5">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointType</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <int>7</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointsFlag</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mEventCode</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <int>3</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mSubEventCode</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <int>-1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mFullEventCode</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <int>3</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <array class="java.lang.String" length="1">
+           <void index="0">
+            <string></string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mPtRadius</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <short>4</short>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries5"/>
+          <string>Stopped</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="paneColor">
+         <object class="java.awt.Color">
+          <int>64</int>
+          <int>64</int>
+          <int>64</int>
+          <int>255</int>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+     </object>
+    </void>
+    <void index="6">
+     <object class="Appleseed.HOBOViewX$HOBOSeriesX">
+      <void property="FWVer">
+       <string>1.10</string>
+      </void>
+      <void property="GMTMinsOrig">
+       <int>-300</int>
+      </void>
+      <void property="GMTMinsRaw">
+       <int>-300</int>
+      </void>
+      <void property="LDesc">
+       <string>End Of File</string>
+      </void>
+      <void property="SDesc">
+       <string>End Of File</string>
+      </void>
+      <void property="SN">
+       <string>10799600</string>
+      </void>
+      <void property="YAxis">
+       <int>7</int>
+      </void>
+      <void property="battLnch">
+       <float>3.55</float>
+      </void>
+      <void property="channelDisplayMode">
+       <object idref="OPlotManager$ChannelDisplayModes0"/>
+      </void>
+      <void property="data">
+       <string>AIAxYc0keUI=</string>
+      </void>
+      <void property="depN">
+       <int>7</int>
+      </void>
+      <void property="devMem">
+       <int>65536</int>
+      </void>
+      <void property="event">
+       <boolean>true</boolean>
+      </void>
+      <void property="fstSampleTime">
+       <double>1.727865951E12</double>
+      </void>
+      <void property="hdrDate">
+       <double>1.391676929634E12</double>
+      </void>
+      <void property="lnchDesc">
+       <string>Mead Treatment_2020</string>
+      </void>
+      <void property="lnchTime">
+       <double>1.579267678E12</double>
+      </void>
+      <void property="mnfc">
+       <string>Onset Computer Corporation</string>
+      </void>
+      <void property="prodID">
+       <string>HOBO U23-001 Temp/RH</string>
+      </void>
+      <void property="samplesN">
+       <array class="int" length="1">
+        <void index="0">
+         <int>1</int>
+        </void>
+       </array>
+      </void>
+      <void property="series">
+       <object class="Graphing.LGSeries" id="LGSeries6">
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointType</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <int>5</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mPointsFlag</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mEventCode</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <int>15</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mSubEventCode</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <int>-1</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>mFullEventCode</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <int>15</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_ArrayUnitOptions</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <array class="java.lang.String" length="1">
+           <void index="0">
+            <string></string>
+           </void>
+          </array>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>m_iCurrentUnitIndex</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <int>0</int>
+         </void>
+        </void>
+        <void class="Graphing.LGSeries" method="getField">
+         <string>dataSetId</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <string>1042045222</string>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mCustomFont</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <boolean>true</boolean>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mPtRadius</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <short>4</short>
+         </void>
+        </void>
+        <void class="Graphing.LGPane" method="getField">
+         <string>mName</string>
+         <void method="set">
+          <object idref="LGSeries6"/>
+          <string>End Of File</string>
+         </void>
+        </void>
+        <void property="MPaintSave">
+         <object idref="Color0"/>
+        </void>
+        <void property="MStrokeSave">
+         <object idref="BasicStroke0"/>
+        </void>
+        <void property="paneColor">
+         <object class="java.awt.Color">
+          <int>64</int>
+          <int>64</int>
+          <int>64</int>
+          <int>255</int>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="startLoggingDelay">
+       <double>1.0</double>
+      </void>
+      <void property="timeZoneID">
+       <string>GMT-05:00</string>
+      </void>
+     </object>
+    </void>
+   </array>
+  </void>
+  <void property="title">
+   <object class="Graphing.LGTitle" id="LGTitle0">
+    <void class="Graphing.LGPane" method="getField">
+     <string>mCustomFont</string>
+     <void method="set">
+      <object idref="LGTitle0"/>
+      <boolean>true</boolean>
+     </void>
+    </void>
+    <void class="Graphing.LGPane" method="getField">
+     <string>mName</string>
+     <void method="set">
+      <object idref="LGTitle0"/>
+      <string>Mead Treatment_2020</string>
+     </void>
+    </void>
+    <void property="font">
+     <object class="java.awt.Font">
+      <string>Tahoma</string>
+      <int>0</int>
+      <int>12</int>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="vendor">
+   <string>Onset Computer Corporation</string>
+  </void>
+  <void property="version">
+   <int>9</int>
+  </void>
+ </object>
+<void class="Graphing.LGSeries" id="Field0" method="getField">
+ <string>SpecialCase</string>
+ <void id="booleanArray0" method="get">
+  <object idref="LGSeries2"/>
+  <void index="2">
+   <boolean>true</boolean>
+  </void>
+ </void>
+</void>
+<void idref="booleanArray0"/>
+<void class="Graphing.LGSeries" id="Field1" method="getField">
+ <string>SpecialCase</string>
+ <void id="booleanArray1" method="get">
+  <object idref="LGSeries4"/>
+  <void index="2">
+   <boolean>true</boolean>
+  </void>
+ </void>
+</void>
+<void idref="booleanArray1"/>
+<void class="Graphing.LGSeries" id="Field2" method="getField">
+ <string>SpecialCase</string>
+ <void id="booleanArray2" method="get">
+  <object idref="LGSeries3"/>
+  <void index="2">
+   <boolean>true</boolean>
+  </void>
+ </void>
+</void>
+<void idref="booleanArray2"/>
+<void class="Graphing.LGSeries" id="Field3" method="getField">
+ <string>SpecialCase</string>
+ <void id="booleanArray3" method="get">
+  <object idref="LGSeries6"/>
+  <void index="2">
+   <boolean>true</boolean>
+  </void>
+ </void>
+</void>
+<void idref="booleanArray3"/>
+<void class="Graphing.LGSeries" id="Field4" method="getField">
+ <string>SpecialCase</string>
+ <void id="booleanArray4" method="get">
+  <object idref="LGSeries5"/>
+  <void index="2">
+   <boolean>true</boolean>
+  </void>
+ </void>
+</void>
+<void idref="booleanArray4"/>
+</java>
