@@ -1,35 +1,40 @@
 rm(list = ls())
-setwd("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/code")
+setwd("/Users/tannermbarnes/Library/CloudStorage/OneDrive-MichiganTechnologicalUniversity/PhD/HOBO")
 library(readxl)
 library(tidyverse)
 library(lubridate)
 
 # Read the data and clean them
-henwood_experiment <- read_excel("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/HENWOOD_DATA.xlsx", 
+henwood_experiment <- read_excel("data/HENWOOD_DATA.xlsx", 
                                  sheet = "Experiment") %>% 
   select(date_time = `Date-Time (EDT)`, temp = `Temperature (°C)`) %>%
   mutate(source = "Experiment")
 
-henwood_control <- read_excel("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/HENWOOD_DATA.xlsx", 
+henwood_control <- read_excel("data/HENWOOD_DATA.xlsx",
                               sheet = "Control") %>% 
   select(date_time = `Date-Time (EDT)`, temp = `Temperature (°C)`) %>%
   mutate(source = "Control")
 
-henwood_skylight <- read_excel("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/HENWOOD_DATA.xlsx", 
+henwood_skylight <- read_excel("data/HENWOOD_DATA.xlsx", 
                                sheet = "Skylight") %>% 
   select(date_time = `Date-Time (EDT)`, temp = `Temperature (°C)`) %>%
   mutate(source = "Skylight")
 
-tippy_dam <- read.csv("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/Tippy_dam_temperature 2019-2020.csv") %>% 
+tippy_dam <- read.csv("/Users/tannermbarnes/Library/CloudStorage/OneDrive-MichiganTechnologicalUniversity/PhD/HOBO/data/Tippy_dam_temperature 2019-2020.csv") %>% 
   select(date_time = Date, temp = Dry_Bulb._C_22) %>%
   mutate(
     source = "Tippy Dam",
     date_time = as.POSIXct(date_time, format = "%m/%d/%Y")  # Adjust format if needed
   )
 
+henwood_psychrometer <- read_excel("data/HENWOOD_DATA.xlsx", 
+                                  sheet = "psychrometer") %>% 
+  select(date_time = "datetime", probe_temp = "probe_temp", temp = "integrated_temp") %>%
+  mutate(source = "Psychrometer")
+
 # Modify all datasets to extract month and day only, ignoring the year
 # Create a month-day column that doesn't include the year
-combined_data <- bind_rows(henwood_experiment, henwood_control, henwood_skylight, tippy_dam) %>%
+combined_data <- bind_rows(henwood_experiment, henwood_control, henwood_skylight, tippy_dam, henwood_psychrometer) %>%
   mutate(month_day = format(date_time, "%m-%d"))  # Extract month and day as a string
 
 # Mutate and create month_day column that only includes month and day
@@ -48,22 +53,28 @@ combined_data <- combined_data %>%
 # Define custom x-axis range from August 1 to July 31 of the next year
 x_limits <- as.Date(c("2024-09-01", "2025-08-31"))
 
+# a named vector is handy – the names must exactly match the values in `source`
+mycols <- c(
+  Control      = "#1b9e77",
+  Experiment   = "#d95f02",
+  Skylight     = "#7570b3",
+  Psychrometer = "#e7298a",
+  `Tippy Dam`  = "#66a61e"
+)
 # Plot the combined data, now using month_day on the x-axis
-ggplot(combined_data, aes(x = month_day, y = temp, color = source, group = source)) +
+ggplot(combined_data,
+       aes(x = month_day, y = temp, color = source, group = source)) +
   geom_line() +
-  labs(
-    x = "Month",
-    y = "Temperature (°C)",
-    color = "Source"
-  ) +
-  scale_x_date(
-    date_labels = "%b",
-    date_breaks = "1 month",
-    limits = x_limits
-  ) +
-  scale_color_discrete(
-    name = "Source",
-    labels = c("Henwood\nControl", "Henwood\nExperiment", "Henwood\nSkylight", "Tippy Dam")
+  labs(x = "Month", y = "Temperature (°C)", color = "Source") +
+  scale_x_date(date_labels = "%b", date_breaks = "1 month", limits = x_limits) +
+  scale_color_manual(
+      name   = "Source",
+      values = mycols,
+      labels = c("Henwood\nControl",
+                 "Henwood\nExperiment",
+                 "Henwood\nSkylight",
+                 "Henwood\nPsychrometer",
+                 "Tippy Dam")
   ) +
   theme_minimal(base_size = 20) +
   theme(
@@ -82,7 +93,7 @@ ggplot(combined_data, aes(x = month_day, y = temp, color = source, group = sourc
   )
 
 
-ggsave(filename = "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/figures/temperature_timeline_plot.png",  # File path and name
+ggsave(filename = "figures/Henwood_Tippy_temperature.png",  # File path and name
   plot = last_plot(),   # If you want to save the last plot you created
   width = 12,           # Set the width to make it wide
   height = 6,           # Adjust the height
@@ -316,3 +327,47 @@ ggplot(compare_summary, aes(x = month, y = mean_temp, color = source, group = so
   labs(y = "Mean Temperature (°C)", title = "Monthly Mean Temperatures: Internal vs External") +
   theme_minimal(base_size = 14)
 
+###### ----- Humidity data from psychrometer ----- ######
+# ---- read psychrometer and compute RH --------------------------------------
+henwood_psychrometer <- read_excel("data/HENWOOD_DATA.xlsx", 
+                                   sheet = "psychrometer") %>% 
+  select(date_time = "datetime",
+         probe_temp = "probe_temp",      # saturated (wet‑bulb) reading
+         temp       = "integrated_temp") %>% # dry‑bulb / air temp
+  mutate(source = "Psychrometer")
+
+## ensure numeric and add RH column
+gamma <- 0.00066                      # psychrometric constant
+svp <- function(t_c) 6.112 * exp((17.62*t_c)/(243.12+t_c))
+
+henwood_psychrometer <- henwood_psychrometer %>%
+  mutate(
+    probe_temp = as.numeric(probe_temp),
+    temp       = as.numeric(temp),
+    humidity   = 100 * (svp(probe_temp) - gamma * (temp - probe_temp)) /
+                       svp(temp),
+    # keep within [0,100] just in case of tiny numeric over/undershoots
+    humidity   = pmin(100, pmax(0, humidity))
+  )
+
+# optional: view a few values
+head(henwood_psychrometer)
+
+# ---- graph the humidity time series ---------------------------------------
+ggplot(henwood_psychrometer, aes(x = date_time, y = humidity)) +
+  geom_line(color = "#117A65", linewidth = 0.8) +
+  labs(x = "Date‑time", y = "Relative humidity (%)",
+       title = "Psychrometer‑derived humidity at Henwood") +
+  theme_minimal(base_size = 14)
+
+# …or if you’d rather include it in `combined_data`:
+combined_data <- bind_rows(henwood_experiment, henwood_control,
+                           henwood_skylight, tippy_dam,
+                           henwood_psychrometer)
+# the `humidity` column will then propagate and you can facet/colour by source etc.
+ggsave(filename = "figures/Henwood_humidity.png",  # File path and name
+  plot = last_plot(),   # If you want to save the last plot you created
+  width = 8,           # Set the width to make it wide
+  height = 6,           # Adjust the height
+  dpi = 300             # Set the resolution to 300 DPI for high quality
+)

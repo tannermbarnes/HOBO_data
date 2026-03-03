@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"name": "HOBO_data",
+			"path": "../../../GitHub/HOBO_data"
+		}
+	],
+	"settings": {
+		"r.lsp.promptToInstall": false
+	}
+}
