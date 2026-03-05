@@ -84,6 +84,13 @@ combined_df <- bind_rows(
 
 start_date <- as.POSIXct("2025-06-01 00:00:00", tz = "America/Detroit")
 
+# compute y-axis breaks every 0.5°C based on the data (used in all plots)
+y_breaks <- seq(
+  floor(min(combined_df$temp, na.rm = TRUE)),
+  ceiling(max(combined_df$temp, na.rm = TRUE)),
+  by = 0.5
+)
+
 # ---- Temperature Plot (Sept 1, 2025 – Current) ----
 temp_plot <- ggplot(combined_df, aes(x = date_time, y = temp, color = source)) +
   geom_line() +
@@ -101,9 +108,12 @@ temp_plot <- ggplot(combined_df, aes(x = date_time, y = temp, color = source)) +
     date_labels = "%b %d",
     date_breaks = "1 week"
   ) +
-  theme_minimal(base_size = 14) +
+  scale_y_continuous(breaks = y_breaks) +
+  theme_minimal(base_size = 18) +
   theme(
-    axis.line = element_line(color = "black"),
+    axis.line = element_line(color = "black", size = 0.8),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18, face = "bold"),
     panel.grid = element_blank(),
     plot.title = element_text(hjust = 0.5)
   )
@@ -138,9 +148,12 @@ temp_plot_filtered <- combined_df %>%
     date_labels = "%b",
     date_breaks = "1 month"
   ) +
-  theme_minimal(base_size = 14) +
+  scale_y_continuous(breaks = y_breaks) +
+  theme_minimal(base_size = 18) +
   theme(
-    axis.line = element_line(color = "black"),
+    axis.line = element_line(color = "black", size = 0.8),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18, face = "bold"),
     panel.grid = element_blank(),
     plot.title = element_text(hjust = 0.5)
   )
@@ -149,3 +162,36 @@ temp_plot_filtered <- combined_df %>%
 ggsave("figures/mead_temperatures_filtered_2025.png", temp_plot_filtered, width = 10, height = 6, dpi = 300)
 
 
+# ---- Wall‑back zoomed plot (15 Feb 2026 – last record) ----
+temp_plot_wall_back <- combined_df %>%
+  filter(source == "Wall Back",
+         date_time >= as.POSIXct("2026-02-15 00:00:00",
+                                 tz = "America/Detroit")) %>%
+  ggplot(aes(x = date_time, y = temp)) +
+  geom_line(color = "steelblue") +
+  labs(
+    x     = "Date",
+    y     = "Temperature (°C)",
+  ) +
+  scale_x_datetime(
+    limits = c(
+      as.POSIXct("2026-02-15 00:00:00", tz = "America/Detroit"),
+      Sys.time()
+    ),
+    date_labels = "%b %d",
+    date_breaks = "2 day"
+  ) +
+  scale_y_continuous(breaks = y_breaks) +
+  theme_minimal(base_size = 18) +
+  theme(
+    axis.line  = element_line(color = "black", size = 0.8),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18, face = "bold"),
+    panel.grid = element_blank(),
+    plot.title = element_text(hjust = 0.5)
+  )
+temp_plot_wall_back
+# and save if you want:
+ggsave("figures/mead_wallback_zoom.png",
+       temp_plot_wall_back,
+       width = 8, height = 4, dpi = 300)

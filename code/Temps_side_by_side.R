@@ -1,5 +1,5 @@
 rm(list = ls())
-setwd("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/code")
+setwd("/Users/tannermbarnes/Library/CloudStorage/OneDrive-MichiganTechnologicalUniversity/PhD/HOBO/")
 # ---- Libraries ----
 library(readxl)
 library(readr)
@@ -29,23 +29,23 @@ to_season_datetime <- function(dt, tz = "America/Detroit"){
 
 # --- Mead (2019-2020 subset) ---
 mead <- read_excel(
-  "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/Mead/Mead_test_stability.xlsx",
-  sheet = "back_2018-2024"
+  "data/Mead/MEAD_DATA_MAY_2025_ON.xlsx",
+  sheet = "control_200"
 ) %>%
   transmute(
-    date_time = as.POSIXct(date_time, tz = "UTC"),  # adjust if needed
+    date_time = as.POSIXct(date, tz = "UTC"),  # adjust if needed
     temp      = as.numeric(temp)
   ) %>%
   filter(between(
     date_time,
-    as.POSIXct("2019-09-01 08:34:51", tz = "UTC"),
-    as.POSIXct("2020-08-31 14:34:51", tz = "UTC")
+    as.POSIXct("2024-10-18 17:06:00", tz = "UTC"),
+    as.POSIXct("2025-10-18 21:06:00", tz = "UTC")
   )) %>%
   mutate(source = "Mead")
 
 # --- Henwood (EDT timestamps in sheet) ---
 henwood <- read_excel(
-  "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/HENWOOD_DATA.xlsx",
+  "data/HENWOOD_DATA.xlsx",
   sheet = "Experiment"
 ) %>%
   transmute(
@@ -56,7 +56,7 @@ henwood <- read_excel(
   filter(is.finite(temp), !is.na(date_time))
 
 # --- Tippy Dam (date only) ---
-tippy_dam <- read.csv("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/Tippy_dam_temperature 2019-2020.csv") %>% 
+tippy_dam <- read.csv("data/Tippy_dam_temperature 2019-2020.csv") %>% 
   transmute(
     date_time = as.POSIXct(Date, format = "%m/%d/%Y", tz = "America/Detroit"),
     temp      = as.numeric(Dry_Bulb._C_22),
@@ -65,7 +65,7 @@ tippy_dam <- read.csv("C:/Users/Tanner/OneDrive - Michigan Technological Univers
   filter(is.finite(temp), !is.na(date_time))
 
 # --- Aztec Mine (HOBO CSV; columns show GMT offset in header) ---
-aztec <- read.csv("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/Aztec.csv", skip = 1) %>% 
+aztec <- read.csv("data/Aztec.csv", skip = 1) %>% 
   # NOTE: backticks required because of special chars in column names
   transmute(
     date_time_raw = `Date.Time..GMT.05.00`,
@@ -88,7 +88,7 @@ aztec <- read.csv("C:/Users/Tanner/OneDrive - Michigan Technological University/
   select(date_time, temp, source)
 
 # --- Beatens Cave (HOBO CSV) ---
-beatens <- read.csv("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/Beatens_2016_b.csv", skip = 1) %>% 
+beatens <- read.csv("data/Beatens_2016_b.csv", skip = 1) %>% 
   transmute(
     date_time_raw = `Date.Time..GMT.04.00`,
     temp          = as.numeric(`Temp...C..LGR.S.N..10799587..SEN.S.N..10799587.`),
@@ -118,7 +118,7 @@ end_time   <- ymd_hm("2025-11-13 10:00", tz = "America/Detroit")
 
 # --- South Lake Upper ---
 south_lake_upper <- read.csv(
-  "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/SouthLake12(2025).csv",
+  "data/SouthLake12(2025).csv",
   skip = 1, check.names = FALSE
 ) %>%
   transmute(
@@ -138,7 +138,7 @@ south_lake_upper <- read.csv(
 
 # --- South Lake Lower ---
 south_lake_lower <- read.csv(
-  "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/SouthLake14(2025).csv",
+  "data/SouthLake14(2025).csv",
   skip = 1, check.names = FALSE
 ) %>%
   transmute(
@@ -156,13 +156,27 @@ south_lake_lower <- read.csv(
          date_time <= end_time) %>%
   select(date_time, temp, rh, source)
 
+delaware <- read_excel("data/Delaware.xlsx", 
+                            sheet = "light") %>% 
+  select(datetime, temp) %>%
+  mutate(
+    date_time = as.POSIXct(datetime, format ="Y-%m-%d %H:%M:%S"), 
+    source = "Delaware") %>% 
+  filter(datetime > as.POSIXct("2025-02-01 00:00:00"))
 
-
+belt <- read_excel("data/belt_mine.xlsx", 
+                            sheet = "JK") %>%
+  select(date, temp) %>% 
+  mutate(
+    date_time = as.POSIXct(date, format ="Y-%m-%d %H:%M:%S"), 
+    source = "Belt Mine") %>% 
+    filter(date_time > as.POSIXct("2025-04-16 17:57:12"))
 
 # ======================
 # 2) COMBINE & BUILD SEASON TIMELINE
 # ======================
-all_sites <- bind_rows(mead, henwood, tippy_dam, aztec, beatens, south_lake_lower, south_lake_upper) %>%
+all_sites <- bind_rows(mead, henwood, tippy_dam, aztec, beatens, south_lake_lower, south_lake_upper, 
+delaware, belt) %>%
   filter(is.finite(temp), !is.na(date_time)) %>%
   mutate(
     # For Mead in UTC, align to local before mapping
@@ -191,7 +205,9 @@ pal <- c(
   "Aztec Mine"       = "#CC79A7",  # reddish-purple
   "Beatens Cave"     = "#E69F00",  # orange
   "South Lake Upper" = "#56B4E9",  # light blue
-  "South Lake Lower" = "#1B6DAE"   # dark blue
+  "South Lake Lower" = "#1B6DAE",   # dark blue
+  "Delaware"         = "#000000",   # black
+  "Belt Mine"        = "#999999"    # grey
 )
 
 # Linetypes: solid for non–South Lake; vary within the South Lake pair
@@ -202,7 +218,9 @@ lt <- c(
   "Aztec Mine"       = "solid",
   "Beatens Cave"     = "solid",
   "South Lake Upper" = "dashed",
-  "South Lake Lower" = "dashed"
+  "South Lake Lower" = "dashed",
+  "Delaware"         = "solid",
+  "Belt Mine"        = "solid"
 )
 
 # (Optional) sanity check: every source has a color
@@ -255,14 +273,14 @@ p_all <- ggplot() +
   )
 
 # Save THIS object (no extra scales added afterward)
-ggsave("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/figures/Mines_seasonal_Timeline.png",
+ggsave("figures/Mines_seasonal_Timeline.png",
        p_all, width = 11, height = 6.5, dpi = 300, bg = "white")
 
 # ggsave("All_Sites_Season_Timeline.png", p_all, width = 11, height = 6.5, dpi = 300, bg = "white")
 # ggsave("All_Sites_Season_Timeline.svg", p_all, width = 11, height = 6.5, bg = "white")
 
 mobility <- read_excel(
-  "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/Chapter4/Joe&Kate_MI_data_multiple_papers.xlsx",
+  "data/Joe&Kate_MI_data_multiple_papers.xlsx",
   sheet = "mobility temp all sites"
 ) %>% 
   mutate(overwinter.diff = as.numeric(overwinter.diff), 
