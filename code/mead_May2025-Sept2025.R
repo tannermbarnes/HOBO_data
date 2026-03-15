@@ -111,7 +111,7 @@ temp_plot <- ggplot(combined_df, aes(x = date_time, y = temp, color = source)) +
   scale_y_continuous(breaks = y_breaks) +
   theme_minimal(base_size = 18) +
   theme(
-    axis.line = element_line(color = "black", size = 0.8),
+    axis.line = element_line(color = "black", linewidth = 0.8),
     axis.text = element_text(size = 16),
     axis.title = element_text(size = 18, face = "bold"),
     panel.grid = element_blank(),
@@ -151,7 +151,7 @@ temp_plot_filtered <- combined_df %>%
   scale_y_continuous(breaks = y_breaks) +
   theme_minimal(base_size = 18) +
   theme(
-    axis.line = element_line(color = "black", size = 0.8),
+    axis.line = element_line(color = "black", linewidth = 0.8),
     axis.text = element_text(size = 16),
     axis.title = element_text(size = 18, face = "bold"),
     panel.grid = element_blank(),
@@ -195,3 +195,56 @@ temp_plot_wall_back
 ggsave("figures/mead_wallback_zoom.png",
        temp_plot_wall_back,
        width = 8, height = 4, dpi = 300)
+
+# ---- New Plot: Experiment Year 1 (Dec 2025 - Current) ----
+experiment_year1_df <- bind_rows(
+  psy_entrance,
+  wall_back,
+  middle_ICU,
+  ICU_back
+) %>%
+  mutate(source = case_when(
+    source == "Entrance Psychrometer" ~ "External Temperature",
+    source == "Wall Back" ~ "Experiment - Front",
+    source == "Middle ICU" ~ "Experiment - Middle",
+    source == "Back of ICU" ~ "Experiment - Back",
+    TRUE ~ source
+  ))
+
+# Compute y-axis breaks for this plot
+y_breaks_year1 <- seq(-10, 10, by = 1)
+
+experiment_year1_plot <- ggplot(experiment_year1_df, aes(x = date_time, y = temp, color = source)) +
+  geom_rect(data = data.frame(xmin = as.POSIXct("2025-12-11"), xmax = as.POSIXct("2025-12-16"), ymin = -Inf, ymax = Inf), aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "dodgerblue", alpha = 0.3, inherit.aes = FALSE) +
+  geom_rect(data = data.frame(xmin = as.POSIXct("2026-02-17"), xmax = Sys.time(), ymin = -Inf, ymax = Inf), aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "dodgerblue", alpha = 0.3, inherit.aes = FALSE) +
+  geom_line() +
+  labs(
+    x = "Date",
+    y = "Temperature (°C)",
+    color = "Source"
+  ) +
+  scale_x_datetime(
+    limits = c(
+      as.POSIXct("2025-12-01 00:00:00"),
+      Sys.time()
+    ),
+    date_labels = "%b %d",
+    date_breaks = "2 weeks"
+  ) +
+  scale_y_continuous(limits = c(-10, 10), breaks = y_breaks_year1) +
+  theme_minimal(base_size = 18) +
+  theme(
+    axis.line = element_line(color = "black", linewidth = 0.8),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18, face = "bold"),
+    panel.grid = element_blank(),
+    legend.position = c(0.85, 0.20),
+    legend.background = element_rect(fill = "white", color = "black")
+  ) +
+  geom_hline(yintercept = 3, color = "red", linetype = "dashed")
+
+print(experiment_year1_plot)
+
+# Save the plot
+ggsave("experiment year 1 plot.png", experiment_year1_plot, width = 10, height = 6, dpi = 300)
+

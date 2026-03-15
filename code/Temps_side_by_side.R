@@ -254,7 +254,7 @@ p_all <- ggplot() +
     y = "Temperature (°C)",
     title = "Temperatures Aligned on a Common Sept→Aug Timeline",
     subtitle = "Shaded band indicates Nov–Apr (winter period)",
-    caption = "Mead and Tippy Dam (2019–2020), Henwood and South Lake (2024–2025), Aztec Mine and Beatens Cave (2017–2018)"
+    caption = ""
   ) +
   theme_minimal(base_size = 16) +
   theme(
