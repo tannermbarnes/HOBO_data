@@ -33,7 +33,7 @@ mead <- read_excel(
   sheet = "control_200"
 ) %>%
   transmute(
-    date_time = as.POSIXct(date, tz = "UTC"),  # adjust if needed
+    date_time = as.POSIXct(datetime, tz = "UTC"),  # adjust if needed
     temp      = as.numeric(temp)
   ) %>%
   filter(between(
@@ -158,25 +158,49 @@ south_lake_lower <- read.csv(
 
 delaware <- read_excel("data/Delaware.xlsx", 
                             sheet = "light") %>% 
-  select(datetime, temp) %>%
-  mutate(
-    date_time = as.POSIXct(datetime, format ="Y-%m-%d %H:%M:%S"), 
-    source = "Delaware") %>% 
-  filter(datetime > as.POSIXct("2025-02-01 00:00:00"))
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Delaware"
+  ) %>% 
+  filter(date_time > as.POSIXct("2025-02-01 00:00:00", tz = "America/Detroit"))
 
 belt <- read_excel("data/belt_mine.xlsx", 
                             sheet = "JK") %>%
-  select(date, temp) %>% 
-  mutate(
-    date_time = as.POSIXct(date, format ="Y-%m-%d %H:%M:%S"), 
-    source = "Belt Mine") %>% 
-    filter(date_time > as.POSIXct("2025-04-16 17:57:12"))
-
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Belt Mine"
+  ) %>% 
+  filter(date_time > as.POSIXct("2025-04-16 17:57:12", tz = "America/Detroit"))
+  
+indiana <- read_excel("data/IndianaMine.xlsx", sheet = "BD21-29") %>%
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Indiana Mine"
+  ) %>%
+  filter(date_time > as.POSIXct("2025-12-05 14:57:12", tz = "America/Detroit"))
 # ======================
 # 2) COMBINE & BUILD SEASON TIMELINE
 # ======================
-all_sites <- bind_rows(mead, henwood, tippy_dam, aztec, beatens, south_lake_lower, south_lake_upper, 
-delaware, belt) %>%
+site_dfs <- list(
+  mead,
+  henwood,
+  tippy_dam,
+  aztec,
+  beatens,
+  south_lake_lower,
+  south_lake_upper,
+  delaware,
+  belt
+) %>%
+  lapply(function(df) {
+    df %>%
+      mutate(temp = suppressWarnings(readr::parse_number(as.character(temp))))
+  })
+
+all_sites <- bind_rows(site_dfs) %>%
   filter(is.finite(temp), !is.na(date_time)) %>%
   mutate(
     # For Mead in UTC, align to local before mapping

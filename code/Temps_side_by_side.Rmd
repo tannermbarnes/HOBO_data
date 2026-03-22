@@ -1,0 +1,450 @@
+---
+title: "Temps Side By Side"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE
+)
+```
+
+## Libraries
+
+```{r libraries}
+rm(list = ls())
+setwd("/Users/tannermbarnes/Library/CloudStorage/OneDrive-MichiganTechnologicalUniversity/PhD/HOBO/")
+library(readxl)
+library(readr)
+library(dplyr)
+library(lubridate)
+library(ggplot2)
+library(stringr)
+library(broom)
+```
+
+## Helper Function
+
+```{r helper}
+to_season_datetime <- function(dt, tz = "America/Detroit"){
+  d <- with_tz(dt, tz)
+  yr <- ifelse(month(d) >= 9, 2000, 2001)
+  make_datetime(
+    year  = yr,
+    month = month(d),
+    day   = day(d),
+    hour  = hour(d),
+    min   = minute(d),
+    sec   = second(d),
+    tz    = tz
+  )
+}
+```
+
+## Read Each Dataset
+
+```{r read-data}
+# --- Mead (2019-2020 subset) ---
+mead <- read_excel(
+  "data/Mead/MEAD_DATA_MAY_2025_ON.xlsx",
+  sheet = "control_200"
+) %>%
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "UTC"),
+    temp      = as.numeric(temp)
+  ) %>%
+  filter(between(
+    date_time,
+    as.POSIXct("2024-10-18 17:06:00", tz = "UTC"),
+    as.POSIXct("2025-10-18 21:06:00", tz = "UTC")
+  )) %>%
+  mutate(source = "Mead")
+
+# --- Henwood (EDT timestamps in sheet) ---
+henwood <- read_excel(
+  "data/HENWOOD_DATA.xlsx",
+  sheet = "Experiment"
+) %>%
+  transmute(
+    date_time = suppressWarnings(lubridate::ymd_hms(`Date-Time (EDT)`, tz = "America/Detroit")),
+    temp      = as.numeric(`Temperature (°C)`),
+    source    = "Henwood"
+  ) %>%
+  filter(is.finite(temp), !is.na(date_time))
+
+# --- Tippy Dam (date only) ---
+tippy_dam <- read.csv("data/Tippy_dam_temperature 2019-2020.csv") %>%
+  transmute(
+    date_time = as.POSIXct(Date, format = "%m/%d/%Y", tz = "America/Detroit"),
+    temp      = as.numeric(Dry_Bulb._C_22),
+    source    = "Tippy Dam"
+  ) %>%
+  filter(is.finite(temp), !is.na(date_time))
+
+aztec <- read_excel("data/Aztec_Mine.xlsx", sheet = "2017-2019") %>%
+  select(datetime, temp, rh) %>%
+  transmute(
+    date_time = force_tz(datetime, "America/Detroit"),
+    temp          = as.numeric(temp)
+  ) %>%
+  mutate(
+    rh = as.numeric("rh"),
+    source = "Aztec Mine"
+  ) %>%
+  filter(
+    !is.na(date_time),
+    between(
+      date_time,
+      as.POSIXct("2017-09-01 00:26:38", tz = "America/Detroit"),
+      as.POSIXct("2018-08-31 23:26:38", tz = "America/Detroit")
+    )
+  ) %>%
+  select(date_time, temp, source)
+
+# --- Beatens Cave (HOBO CSV) ---
+beatens <- read_excel("data/beatens_cave.xlsx", sheet = "2016B") %>%
+  transmute(
+    date_time = force_tz(datetime, "America/Detroit"),
+    temp          = as.numeric(temp)) |>
+  mutate(
+    source    = "Beatens Cave"
+  ) %>%
+  filter(
+    !is.na(date_time),
+    between(
+      date_time,
+      as.POSIXct("2016-09-17 00:59:54", tz = "America/Detroit"),
+      as.POSIXct("2017-09-16 12:59:54", tz = "America/Detroit")
+    )
+  ) %>%
+  select(date_time, temp, source)
+
+start_time <- ymd_hm("2024-11-14 14:00", tz = "America/Detroit")
+end_time   <- ymd_hm("2025-11-13 10:00", tz = "America/Detroit")
+
+# --- South Lake Upper ---
+south_lake_upper <- read_excel(
+  "data/SouthLake.xlsx",
+  sheet = "A(25-26)"
+) %>%
+  transmute(
+    date_time = force_tz(datetime, "America/Detroit"),
+    temp          = as.numeric(integrated)
+  ) %>%
+  mutate(
+    rh = as.numeric("rh"),
+    source    = "South Lake Upper"
+  ) %>%
+  filter(!is.na(date_time),
+         date_time >= start_time,
+         date_time <= end_time) %>%
+  select(date_time, temp, rh, source)
+
+# --- South Lake Lower ---
+south_lake_lower <- read_excel(
+  "data/SouthLake.xlsx",
+  sheet = "E(25-26)"
+) %>%
+  transmute(
+    date_time = force_tz(datetime, "America/Detroit"),
+    temp          = as.numeric(integrated)
+  ) %>%
+  mutate(
+    rh = as.numeric("rh"),
+    source    = "South Lake Lower"
+  ) %>%
+  filter(!is.na(date_time),
+         date_time >= start_time,
+         date_time <= end_time) %>%
+  select(date_time, temp, rh, source)
+
+delaware <- read_excel("data/Delaware.xlsx", sheet = "light") %>%
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Delaware"
+  ) %>%
+  filter(date_time > as.POSIXct("2025-02-01 00:00:00", tz = "America/Detroit"))
+
+belt <- read_excel("data/belt_mine.xlsx", sheet = "JK") %>%
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Belt Mine"
+  ) %>%
+  filter(date_time > as.POSIXct("2025-04-16 17:57:12", tz = "America/Detroit"))
+
+indiana <- read_excel("data/IndianaMine.xlsx", sheet = "BD21-29") %>%
+  transmute(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Indiana Mine"
+  ) %>%
+  filter(date_time > as.POSIXct("2025-12-05 14:57:12", tz = "America/Detroit"))
+
+rockfall <- read_excel("data/RockfallAdit.xlsx", sheet = "hobo") %>%
+  mutate(
+    date_time = as.POSIXct(datetime, tz = "America/Detroit"),
+    temp = as.numeric(temp),
+    source = "Adventure Rockfall"
+  )
+
+```
+
+## Combine And Build Seasonal Timeline
+
+```{r combine}
+site_dfs <- list(
+  mead,
+  henwood,
+  tippy_dam,
+  aztec,
+  beatens,
+  south_lake_lower,
+  south_lake_upper,
+  delaware,
+  belt,
+  indiana,
+  rockfall
+) %>%
+  lapply(function(df) {
+    df %>%
+      mutate(temp = suppressWarnings(readr::parse_number(as.character(temp))))
+  })
+
+all_sites <- bind_rows(site_dfs) %>%
+  filter(is.finite(temp), !is.na(date_time)) %>%
+  mutate(
+    date_time_local = with_tz(date_time, "America/Detroit"),
+    season_time     = to_season_datetime(date_time_local, tz = "America/Detroit")
+  )
+```
+
+## Plot Seasonal Temperatures
+
+```{r seasonal-plot, fig.width=11, fig.height=6.5}
+season_start <- as.POSIXct("2000-09-01 00:00:00", tz = "America/Detroit")
+season_end   <- as.POSIXct("2001-08-31 23:59:59", tz = "America/Detroit")
+month_breaks <- seq(season_start, season_end, by = "1 month")
+
+winter_xmin <- as.POSIXct("2000-11-01 00:00:00", tz = "America/Detroit")
+winter_xmax <- as.POSIXct("2001-04-30 23:59:59", tz = "America/Detroit")
+
+pal <- c(
+  "Mead"             = "#F0E442",
+  "Henwood"          = "#D55E00",
+  "Tippy Dam"        = "#009E73",
+  "Aztec Mine"       = "#CC79A7",
+  "Beatens Cave"     = "#996515",
+  "South Lake Upper" = "#56B4E9",
+  "South Lake Lower" = "#1B6DAE",
+  "Delaware"         = "#000000",
+  "Belt Mine"        = "#999999",
+  "Indiana Mine"     = "#1B5E20", 
+  "Adventure Rockfall" = "#DCCf33"
+)
+
+lt <- c(
+  "Mead"             = "solid",
+  "Henwood"          = "solid",
+  "Tippy Dam"        = "solid",
+  "Aztec Mine"       = "solid",
+  "Beatens Cave"     = "solid",
+  "South Lake Upper" = "dashed",
+  "South Lake Lower" = "dashed",
+  "Delaware"         = "solid",
+  "Belt Mine"        = "solid",
+  "Indiana Mine"     = "solid",
+  "Adventure Rockfall" = "solid"
+)
+
+setdiff(unique(all_sites$source), names(pal))
+
+library(grid)
+
+p_all <- ggplot() +
+  annotate("rect", xmin = winter_xmin, xmax = winter_xmax,
+           ymin = -Inf, ymax = Inf, fill = "grey96", alpha = 1) +
+  geom_line(data = all_sites,
+            aes(x = season_time, y = temp, color = source, linetype = source),
+            linewidth = 1.1, alpha = 0.9) +
+  scale_color_manual(
+    values = pal,
+    breaks = names(pal),
+    name = "Site",
+    guide = guide_legend(
+      nrow = 2,
+      byrow = TRUE,
+      override.aes = list(linewidth = 1.6)
+    )
+  ) +
+  scale_linetype_manual(
+    values = lt,
+    breaks = names(pal),
+    name = "Site",
+    guide = guide_legend(
+      nrow = 2,
+      byrow = TRUE
+    )
+  ) +
+  scale_x_datetime(
+    breaks = month_breaks,
+    labels = scales::label_date("%b"),
+    limits = c(season_start, season_end),
+    expand = c(0.005, 0)
+  ) +
+  labs(
+    x = NULL,
+    y = "Temperature (°C)",
+    title = "Temperatures Aligned on a Common Sept→Aug Timeline",
+    subtitle = "Shaded band indicates Nov–Apr (winter period)",
+    caption = ""
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    plot.title.position = "plot",
+    legend.position = "top",
+    legend.direction = "horizontal",
+    legend.justification = "left",
+    legend.box = "vertical",
+    legend.key.width = unit(1.8, "lines"),
+    legend.text = element_text(size = 11),
+    legend.title = element_text(size = 12),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.major.y = element_line(linewidth = 0.3, color = "grey80"),
+    axis.line = element_line(color = "black", linewidth = 0.3),
+    axis.ticks.x = element_blank(),
+    axis.text.x = element_text(margin = margin(t = 4)),
+    plot.margin = margin(10, 16, 10, 16)
+  )
+
+p_all
+
+ggsave("figures/Mines_seasonal_Timeline.png", p_all, width = 11, height = 6.5, dpi = 300, bg = "white")
+```
+
+## Mobility Data
+
+```{r mobility-data}
+mobility <- read_excel(
+  "data/Joe&Kate_MI_data_multiple_papers.xlsx",
+  sheet = "mobility temp all sites"
+) %>%
+  mutate(
+    overwinter.diff = as.numeric(overwinter.diff),
+    overwinter.lambda = as.numeric(overwinter.lambda)
+  )
+
+colnames(mobility)
+```
+
+## Bat Movement Versus Mean Winter Temperature
+
+```{r movement-vs-temp}
+mobility %>%
+  filter(species != "EPFU") %>%
+  ggplot(aes(x = mean_temp, y = overwinter.diff, color = species)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    x = "Mean Winter Temperature (°C)",
+    y = "Overwinter Difference (Late − Early)",
+    color = "Species",
+    title = "Bat Movement vs. Mean Winter Temperature"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "top",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(color = "black")
+  ) +
+  coord_cartesian(xlim = c(3, 11), ylim = c(-100, 100))
+```
+
+## Species-Specific Slopes
+
+```{r slopes}
+slopes <- mobility %>%
+  filter(species != "EPFU") %>%
+  group_by(species) %>%
+  do(tidy(lm(overwinter.diff ~ mean_temp, data = .))) %>%
+  filter(term == "mean_temp") %>%
+  select(species, estimate, std.error, statistic, p.value)
+
+print(slopes)
+```
+
+## Combined Trend Plot
+
+```{r combined-trend}
+ggplot(mobility, aes(x = mean_temp, y = overwinter.diff, color = species)) +
+  geom_point(alpha = 0.7) +
+  geom_smooth(method = "lm", se = TRUE) +
+  geom_smooth(
+    aes(x = mean_temp, y = overwinter.diff),
+    method = "lm",
+    color = "black",
+    se = TRUE,
+    inherit.aes = FALSE
+  ) +
+  labs(
+    x = "Mean Winter Temperature (°C)",
+    y = "Overwinter Difference (Late − Early)",
+    color = "Species",
+    title = "Bat Movement vs. Mean Winter Temperature"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "top",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(color = "black")
+  )
+```
+
+## Early Versus Late Winter Counts
+
+```{r winter-counts}
+library(tidyr)
+
+mobility_long <- mobility %>%
+  mutate(
+    early.winter.count = as.numeric(early.winter.count),
+    count = as.numeric(count)
+  ) %>%
+  select(site, mean_temp, early.winter.count, count, species, wyear) %>%
+  pivot_longer(
+    cols = c(early.winter.count, count),
+    names_to = "season",
+    values_to = "bat_count"
+  ) %>%
+  mutate(season = recode(season,
+    early.winter.count = "Early Winter",
+    count = "Late Winter"
+  ))
+
+mobility_long %>%
+  filter(species == "MYLU") %>%
+  filter(wyear == "2014") %>%
+  ggplot(aes(x = mean_temp, y = bat_count, color = season, group = interaction(site, species))) +
+  geom_point(size = 2, alpha = 0.7) +
+  geom_line(alpha = 0.5) +
+  facet_wrap(~species) +
+  labs(
+    x = "Mean Site Temperature (°C)",
+    y = "Bat Count",
+    color = "Survey",
+    title = "Early vs Late Winter Bat Counts per Site"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    legend.position = "top",
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.line = element_line(color = "black")
+  )
+```
