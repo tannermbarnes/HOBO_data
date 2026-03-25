@@ -118,6 +118,7 @@ temp_plot <- ggplot(combined_df, aes(x = date_time, y = temp, color = source)) +
     plot.title = element_text(hjust = 0.5)
   )
 
+temp_plot
 # Save the plot
 ggsave("figures/mead_temperatures_2025.png", temp_plot, width = 10, height = 6, dpi = 300)
 
@@ -276,7 +277,7 @@ experiment_year1_plot <- ggplot(
     legend.position = c(0.85, 0.20),
     legend.background = element_rect(fill = "white", color = "black")
   ) +
-  geom_hline(yintercept = 3, color = "red", linetype = "dashed") +
+  geom_hline(yintercept = 3.5, color = "red", linetype = "dashed") +
   geom_vline(xintercept = as.POSIXct("2025-12-11"), color = "darkorange", linetype = "solid") +
   geom_vline(xintercept = as.POSIXct("2026-02-27"), color = "darkblue", linetype = "solid") +
   annotate("text", x = as.POSIXct("2025-12-14"), y = 9, label = "Survey 1", color = "darkorange", size = 4, angle = 90, vjust = -0.5) +

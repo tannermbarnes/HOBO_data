@@ -192,7 +192,7 @@ ggplot(cd2, aes(x = period, y = temp, fill = period)) +
 
 ggsave(
   filename = "Henwood_boxplot_variable.png",
-  path = "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/figures",
+  path = "figures",
   width = 10, height = 6, dpi = 300
 )
 
@@ -227,7 +227,7 @@ ggplot(cd2, aes(x = ym_label, y = temp, fill = period)) +
 
 ggsave(
   filename = "Henwood_boxplot_by_month.png",
-  path = "C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/figures",
+  path = "figures",
   width = 10, height = 6, dpi = 300
 )
 # monthly mean line plots
@@ -254,7 +254,7 @@ ggplot(monthly_means, aes(x = year_month, y = mean_temp, color = period)) +
 
 
 
-weather <- readr::read_csv("C:/Users/Tanner/OneDrive - Michigan Technological University/PhD/HOBO/data/Watersmeet_Sept2024-Sept2025_weather_averages.csv")
+weather <- readr::read_csv("data/Watersmeet_Sept2024-Sept2025_weather_averages.csv")
 # Make sure date is parsed properly
 weather <- weather %>%
   mutate(
@@ -370,4 +370,61 @@ ggsave(filename = "figures/Henwood_humidity.png",  # File path and name
   width = 8,           # Set the width to make it wide
   height = 6,           # Adjust the height
   dpi = 300             # Set the resolution to 300 DPI for high quality
+)
+
+# ---- plot temperature over time from Oct 2, 2024 --------------------------
+temp_start_date <- as.POSIXct("2024-10-02 00:00:00", tz = "America/Detroit")
+plot_end_date <- max(combined_data$date_time, na.rm = TRUE)
+
+winter_windows <- tibble(
+  xmin = as.POSIXct(c("2024-11-01 00:00:00", "2025-11-01 00:00:00"), tz = "America/Detroit"),
+  xmax = as.POSIXct(c("2025-04-30 23:59:59", format(plot_end_date, "%Y-%m-%d %H:%M:%S")),
+                    tz = "America/Detroit")
+) |>
+  filter(xmin <= plot_end_date)
+
+combined_data |>
+  filter(!is.na(temp), date_time >= temp_start_date) |>
+  ggplot(aes(x = date_time, y = temp, color = source)) +
+  geom_rect(
+    data = winter_windows,
+    inherit.aes = FALSE,
+    aes(xmin = xmin, xmax = xmax, ymin = -Inf, ymax = Inf),
+    fill = "lightblue",
+    alpha = 0.25
+  ) +
+  geom_line(linewidth = 0.7) +
+  labs(
+    x = "Date", 
+    y = "Temperature (ºC)", 
+    color = "Source", 
+    caption = "Shaded regions indicate hibernation season"
+  ) +
+  scale_color_manual(
+    name = "Source",
+    values = mycols,
+    labels = c("Henwood\nControl",
+               "Henwood\nExperiment",
+               "Henwood\nSkylight",
+               "Henwood\nPsychrometer",
+               "Tippy Dam")
+  ) +
+  scale_x_datetime(date_labels = "%b %Y", date_breaks = "1 month") +
+  theme_minimal(base_size = 14) +
+theme(
+  axis.text.x = element_text(angle = 45, hjust = 1),
+  panel.grid.minor = element_blank(),
+  legend.position = "top",
+  axis.title.x = element_text(face = "bold"),
+  axis.title.y = element_text(face = "bold"),
+  plot.caption = element_text(hjust = 0.5)
+)
+
+
+ggsave(
+  filename = "figures/Henwood_Temperature_from_2024-10-02.png",
+  plot = last_plot(),
+  width = 12,
+  height = 6,
+  dpi = 300
 )
