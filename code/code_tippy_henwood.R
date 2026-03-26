@@ -374,6 +374,7 @@ ggsave(filename = "figures/Henwood_humidity.png",  # File path and name
 
 # ---- plot temperature over time from Oct 2, 2024 --------------------------
 temp_start_date <- as.POSIXct("2024-10-02 00:00:00", tz = "America/Detroit")
+psychrometer_start_date <- as.POSIXct("2025-11-14 16:21:58", tz = "America/Detroit")
 plot_end_date <- max(combined_data$date_time, na.rm = TRUE)
 
 winter_windows <- tibble(
@@ -384,8 +385,25 @@ winter_windows <- tibble(
   filter(xmin <= plot_end_date)
 
 combined_data |>
-  filter(!is.na(temp), date_time >= temp_start_date) |>
-  ggplot(aes(x = date_time, y = temp, color = source)) +
+  filter(
+    !is.na(temp),
+    date_time >= temp_start_date,
+    source != "Tippy Dam",
+    source != "Psychrometer" | date_time >= psychrometer_start_date
+  ) |>
+  mutate(
+    source_plot = case_when(
+      source == "Experiment" ~ "shaft",
+      source == "Skylight" ~ "skylight",
+      source == "Control" ~ "adit",
+      source == "Psychrometer" ~ "psychrometer"
+    ),
+    source_plot = factor(
+      source_plot,
+      levels = c("shaft", "skylight", "adit", "psychrometer")
+    )
+  ) |>
+  ggplot(aes(x = date_time, y = temp, color = source_plot)) +
   geom_rect(
     data = winter_windows,
     inherit.aes = FALSE,
@@ -402,12 +420,14 @@ combined_data |>
   ) +
   scale_color_manual(
     name = "Source",
-    values = mycols,
-    labels = c("Henwood\nControl",
-               "Henwood\nExperiment",
-               "Henwood\nSkylight",
-               "Henwood\nPsychrometer",
-               "Tippy Dam")
+    values = c(
+      shaft = unname(mycols["Experiment"]),
+      skylight = unname(mycols["Skylight"]),
+      adit = unname(mycols["Control"]),
+      psychrometer = unname(mycols["Psychrometer"])
+    ),
+    breaks = c("shaft", "skylight", "adit", "psychrometer"),
+    labels = c("shaft", "skylight", "adit", "psychrometer")
   ) +
   scale_x_datetime(date_labels = "%b %Y", date_breaks = "1 month") +
   theme_minimal(base_size = 14) +
@@ -424,7 +444,7 @@ theme(
 ggsave(
   filename = "figures/Henwood_Temperature_from_2024-10-02.png",
   plot = last_plot(),
-  width = 12,
-  height = 6,
+  width = 6.5,
+  height = 4.5,
   dpi = 300
 )

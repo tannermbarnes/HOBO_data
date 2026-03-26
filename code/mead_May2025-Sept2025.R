@@ -162,7 +162,7 @@ temp_plot_filtered <- combined_df %>%
 # Save the filtered plot
 ggsave("figures/mead_temperatures_filtered_2025.png", temp_plot_filtered, width = 10, height = 6, dpi = 300)
 
-
+#####################################################################################
 # ---- Wall‑back zoomed plot (15 Feb 2026 – last record) ----
 temp_plot_wall_back <- combined_df %>%
   filter(source == "Wall Back",
@@ -196,6 +196,8 @@ temp_plot_wall_back
 ggsave("figures/mead_wallback_zoom.png",
        temp_plot_wall_back,
        width = 8, height = 4, dpi = 300)
+
+##########################################################################################
 
 # ---- New Plot: Experiment Year 1 (Dec 2025 - Current) ---- ##########################
 experiment_year1_df <- bind_rows(
@@ -251,7 +253,7 @@ experiment_year1_plot <- ggplot(
   aes(x = date_time, y = temp, color = source, group = interaction(source, line_group))
 ) +
   geom_rect(data = data.frame(xmin = as.POSIXct("2025-12-11"), xmax = as.POSIXct("2025-12-16"), ymin = -Inf, ymax = Inf), aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "dodgerblue", alpha = 0.3, inherit.aes = FALSE) +
-  geom_rect(data = data.frame(xmin = as.POSIXct("2026-02-17"), xmax = Sys.time(), ymin = -Inf, ymax = Inf), aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "dodgerblue", alpha = 0.3, inherit.aes = FALSE) +
+  geom_rect(data = data.frame(xmin = as.POSIXct("2026-02-17"), xmax = as.POSIXct("2026-03-23"), ymin = -Inf, ymax = Inf), aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), fill = "dodgerblue", alpha = 0.3, inherit.aes = FALSE) +
   geom_line() +
   labs(
     x = "Date",
